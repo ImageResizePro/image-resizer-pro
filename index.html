@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resize Photo Free Online Tool | ImageResizerPro</title>
     <meta name="description" content="Free online tool to resize images and photos. Adjust dimensions or file size, convert formats. No registration required. Made in India 🇮🇳">
     <meta name="keywords" content="resize image, photo resizer, image compressor, reduce image size, image converter, free online tool, Indian developers">
+    <title>Resize Photo Free Online Tool | ImageResizerPro</title>
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+    
+    <!-- Inline critical CSS -->
     <style>
         :root {
             --primary-color: #6c5ce7;
@@ -226,12 +232,6 @@
             border-radius: var(--border-radius);
             display: block;
             margin: 0 auto;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        canvas[data-processed="true"] {
-            opacity: 1;
         }
         
         .form-group {
@@ -411,6 +411,7 @@
             border-color: var(--primary-color);
         }
         
+        /* Enhanced Ad Container Styles */
         .ad-video-container {
             display: none;
             margin: 1.5rem 0;
@@ -418,23 +419,31 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             position: relative;
+            min-height: 200px;
         }
         
-        .ad-video-placeholder {
-            width: 100%;
-            height: 50vh;
-            background: linear-gradient(135deg, #434343 0%, #000000 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .ad-sponsored {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.5);
             color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            z-index: 10;
         }
         
-        .ad-video-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+        .ad-timer {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 0.8rem;
+            z-index: 10;
+            background: rgba(0,0,0,0.7);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
         }
         
         .ad-skip-btn {
@@ -449,6 +458,7 @@
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.2s ease;
+            z-index: 10;
         }
         
         .ad-skip-btn:disabled {
@@ -456,23 +466,41 @@
             cursor: not-allowed;
         }
         
-        .ad-timer {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: white;
-            font-size: 0.8rem;
+        .ad-bottom {
+            background-color: var(--darker-bg);
+            height: 90px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            color: var(--secondary-color);
         }
         
-        .ad-sponsored {
+        /* Loading animation for ad containers */
+        .ad-loading {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .ad-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         @media (max-width: 992px) {
@@ -488,6 +516,10 @@
                 height: 250px;
                 margin: 1rem 0.5rem;
                 position: static;
+            }
+            
+            .ad-video-container {
+                min-height: 150px;
             }
         }
         
@@ -511,8 +543,8 @@
                 padding: 1.5rem;
             }
             
-            .ad-video-placeholder {
-                height: 150px;
+            .ad-video-container {
+                min-height: 120px;
             }
         }
         
@@ -536,36 +568,54 @@
                 justify-content: center;
             }
             
-            .ad-video-placeholder {
-                height: 120px;
+            .ad-video-container {
+                min-height: 100px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="ad-left">Advertisement</div>
+    <div class="container" role="main">
+        <!-- Left Banner (160x600) - Loads after main content -->
+        <aside class="ad-left" aria-label="Advertisement">
+            <div id="adsterra-left-banner" data-ad-key="0aa8b2883c8fce9057161fbb721d1d4f" 
+                 data-ad-format="iframe" data-ad-width="160" data-ad-height="600">
+                <div class="ad-loading">
+                    <div class="ad-loading-spinner"></div>
+                </div>
+            </div>
+        </aside>
         
         <header>
             <h1>ImageResizerPro</h1>
-            <p class="tagline">Resize your images / PDF the smart way – powered by Indians <span class="indian-flag"></span></p>
+            <p class="tagline">Resize your images / PDF the smart way – powered by Indians <span class="indian-flag" aria-hidden="true"></span></p>
         </header>
         
+        <!-- Top Banner (728x90) - Loads after header -->
         <div class="ad-top-container">
-            <div class="ad-top">Advertisement Space (728x90)</div>
+            <div class="ad-top">
+                <div id="adsterra-top-banner" data-ad-key="7cf94486e4ecf6d0c81045ce6d30b01d" 
+                     data-ad-format="iframe" data-ad-width="728" data-ad-height="90">
+                    <div class="ad-loading">
+                        <div class="ad-loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <main>
-            <div class="tool-container">
-                <div class="tabs">
-                    <button class="tab active" data-tab="dimensions">Resize by Dimensions</button>
-                    <button class="tab" data-tab="filesize">Resize by File Size</button>
+            <article class="tool-container">
+                <!-- Tablist with ARIA attributes -->
+                <div class="tabs" role="tablist">
+                    <button class="tab active" role="tab" aria-selected="true" aria-controls="dimensions-tab" id="dimensions-tab-btn" data-tab="dimensions">Resize by Dimensions</button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="filesize-tab" id="filesize-tab-btn" data-tab="filesize">Resize by File Size</button>
                 </div>
                 
-                <div class="tab-content active" id="dimensions">
-                    <div class="upload-area" id="uploadAreaDimensions">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                <!-- Tabpanel with ARIA attributes -->
+                <section class="tab-content active" role="tabpanel" id="dimensions" aria-labelledby="dimensions-tab-btn" tabindex="0">
+                    <!-- Improved upload area with ARIA -->
+                    <div class="upload-area" id="uploadAreaDimensions" role="button" tabindex="0" aria-label="Upload image area">
+                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
                         <p>Drag & drop your image here or click to browse</p>
                         <p class="file-info" id="fileInfoDimensions"></p>
                     </div>
@@ -630,7 +680,7 @@
                     <div class="form-group">
                         <label for="formatDimensions">Output Format</label>
                         <select id="formatDimensions">
-                            <option value="jpeg">JPG</option>
+                            <option value="jpg">JPG</option>
                             <option value="jpeg">JPEG</option>
                             <option value="png">PNG</option>
                             <option value="pdf">PDF <span class="badge">(Coming Soon)</span></option>
@@ -639,22 +689,25 @@
                     
                     <button class="btn" id="resizeBtnDimensions"><i class="fas fa-expand-arrows-alt"></i> Resize Image</button>
                     
+                    <!-- Video Ad Container for Dimensions Tab -->
                     <div class="ad-video-container" id="videoAdDimensions">
                         <div class="ad-sponsored">Sponsored</div>
-                        <div class="ad-video-placeholder">
-                            <i class="fas fa-ad"></i>
-                            <p>Your video ad will play here</p>
+                        <div id="adsterra-video-ad" data-ad-key="5d120834528f816ae0581b74b95f4bbe" 
+                             data-ad-format="iframe" data-ad-width="300" data-ad-height="250">
+                            <div class="ad-loading">
+                                <div class="ad-loading-spinner"></div>
+                            </div>
                         </div>
                         <div class="ad-timer">Ad: <span id="adTimerDimensions">10</span>s</div>
                         <button class="ad-skip-btn" id="skipAdDimensions" disabled>Skip in 10s</button>
                     </div>
                     
                     <button class="btn btn-download" id="downloadBtnDimensions"><i class="fas fa-download"></i> Download Resized Image</button>
-                </div>
+                </section>
                 
-                <div class="tab-content" id="filesize">
-                    <div class="upload-area" id="uploadAreaFilesize">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                <section class="tab-content" role="tabpanel" id="filesize" aria-labelledby="filesize-tab-btn" tabindex="0">
+                    <div class="upload-area" id="uploadAreaFilesize" role="button" tabindex="0" aria-label="Upload image area">
+                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
                         <p>Drag & drop your image here / click to browse</p>
                         <p class="file-info" id="fileInfoFilesize"></p>
                     </div>
@@ -692,7 +745,7 @@
                     <div class="form-group">
                         <label for="formatFilesize">Output Format</label>
                         <select id="formatFilesize">
-                            <option value="jpeg">JPG</option>
+                            <option value="jpg">JPG</option>
                             <option value="jpeg">JPEG</option>
                             <option value="png">PNG</option>
                             <option value="pdf">PDF <span class="badge">(Coming Soon)</span></option>
@@ -701,26 +754,35 @@
                     
                     <button class="btn" id="resizeBtnFilesize"><i class="fas fa-weight-hanging"></i> Resize by File Size</button>
                     
+                    <!-- Video Ad Container for Filesize Tab -->
                     <div class="ad-video-container" id="videoAdFilesize">
                         <div class="ad-sponsored">Sponsored</div>
-                        <div class="ad-video-placeholder">
-                            <i class="fas fa-ad"></i>
-                            <p>Your video ad will play here</p>
+                        <div id="adsterra-video-ad-filesize" data-ad-key="ad71187ac6a638326d4b87c4bf5cc116" 
+                             data-ad-format="iframe" data-ad-width="320" data-ad-height="50">
+                            <div class="ad-loading">
+                                <div class="ad-loading-spinner"></div>
+                            </div>
                         </div>
                         <div class="ad-timer">Ad: <span id="adTimerFilesize">10</span>s</div>
                         <button class="ad-skip-btn" id="skipAdFilesize" disabled>Skip in 10s</button>
                     </div>
                     
                     <button class="btn btn-download" id="downloadBtnFilesize"><i class="fas fa-download"></i> Download Resized Image</button>
+                </section>
+            </article>
+            
+            <!-- Bottom Banner (728x90) - Loads last -->
+            <div class="ad-bottom">
+                <div id="adsterra-bottom-banner" data-ad-key="ff97b1fd215f4383a8bdb164d6c62f2f" 
+                     data-ad-format="iframe" data-ad-width="728" data-ad-height="90">
+                    <div class="ad-loading">
+                        <div class="ad-loading-spinner"></div>
+                    </div>
                 </div>
             </div>
             
-            <div class="ad-bottom" style="background-color: var(--darker-bg); height: 90px; margin: 2rem auto; display: flex; align-items: center; justify-content: center; border-radius: var(--border-radius); color: var(--secondary-color);">
-                Advertisement Space (728x90)
-            </div>
-            
-            <div class="faq-section">
-                <h2>Frequently Asked Questions</h2>
+            <section class="faq-section" aria-labelledby="faq-heading">
+                <h2 id="faq-heading">Frequently Asked Questions</h2>
                 
                 <div class="faq-item">
                     <div class="faq-question">
@@ -748,7 +810,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        Yes! ImageResizerPro is proudly developed by Indian developers <span class="indian-flag"></span>. We're committed to providing high-quality free tools for everyone.
+                        Yes! ImageResizerPro is proudly developed by Indian developers <span class="indian-flag" aria-hidden="true"></span>. We're committed to providing high-quality free tools for everyone.
                     </div>
                 </div>
                 
@@ -761,19 +823,31 @@
                         Absolutely! All image processing happens in your browser. Your images are never uploaded to any server, ensuring complete privacy and security.
                     </div>
                 </div>
-            </div>
+            </section>
         </main>
         
         <footer>
-            <p>© 2025 ImageResizerPro - Free Online Image Resizing Tool</p>
-            <p>Made with <i class="fas fa-heart" style="color: #ff4757;"></i> in India <span class="indian-flag"></span></p>
+            <p>© <span id="current-year">2025</span> ImageResizerPro - Free Online Image Resizing Tool</p>
+            <p>Made with <i class="fas fa-heart" style="color: #ff4757;" aria-hidden="true"></i> in India <span class="indian-flag" aria-hidden="true"></span></p>
         </footer>
         
-        <div class="ad-right">Advertisement</div>
+        <!-- Right Banner (160x600) - Loads after main content -->
+        <aside class="ad-right" aria-label="Advertisement">
+            <div id="adsterra-right-banner" data-ad-key="8cfb7793fc8ec38875080b2a5c501b2c" 
+                 data-ad-format="iframe" data-ad-width="160" data-ad-height="600">
+                <div class="ad-loading">
+                    <div class="ad-loading-spinner"></div>
+                </div>
+            </div>
+        </aside>
     </div>
 
+    <!-- Original Image Resizer JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
             // Tab switching functionality
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
@@ -1111,34 +1185,24 @@
                 resizedCanvasDimensions.width = widthPx;
                 resizedCanvasDimensions.height = heightPx;
                 ctx.drawImage(originalImageDimensions, 0, 0, widthPx, heightPx);
-                resizedCanvasDimensions.setAttribute('data-processed', 'true');
-
+                
                 // Convert to selected format
-                const mimeType = selectedFormat === 'jpeg' ? 'image/jpeg' : `image/${selectedFormat}`;
                 resizedCanvasDimensions.toBlob(function(blob) {
-                    if (!blob) {
-                        alert('Error creating resized image');
-                        return;
-                    }
                     resizedImageBlobDimensions = blob;
                     dimensionsAdSystem.startAd();
-                }, mimeType, quality);
+                }, `image/${selectedFormat}`, quality);
             }
             
             resizeBtnDimensions.addEventListener('click', resizeImageByDimensions);
             
             // Download resized image for Dimensions tab
             downloadBtnDimensions.addEventListener('click', function() {
-                if (!resizedImageBlobDimensions) {
-                    alert('Please resize the image first');
-                    return;
-                }
+                if (!resizedImageBlobDimensions) return;
                 
-                const format = formatDimensions.value === 'jpeg' ? 'jpg' : formatDimensions.value;
                 const url = URL.createObjectURL(resizedImageBlobDimensions);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `resized-image.${format}`;
+                a.download = `resized-image.${formatDimensions.value}`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -1158,39 +1222,29 @@
                     return;
                 }
                 
-                alert('Resizing by file size and PDF compression is coming soon!');
+                alert('Resizing PDF compression is coming soon!');
                 
                 const quality = parseFloat(qualityFilesizeSlider.value);
                 const ctx = resizedCanvasFilesize.getContext('2d');
                 resizedCanvasFilesize.width = originalImageFilesize.width;
                 resizedCanvasFilesize.height = originalImageFilesize.height;
                 ctx.drawImage(originalImageFilesize, 0, 0, originalImageFilesize.width, originalImageFilesize.height);
-                resizedCanvasFilesize.setAttribute('data-processed', 'true');
-
+                
                 // Simulate creating a blob
-                const mimeType = selectedFormat === 'jpeg' ? 'image/jpeg' : `image/${selectedFormat}`;
                 resizedCanvasFilesize.toBlob(function(blob) {
-                    if (!blob) {
-                        alert('Error creating resized image');
-                        return;
-                    }
                     resizedImageBlobFilesize = blob;
                     filesizeAdSystem.startAd();
-                }, mimeType, quality);
+                }, `image/${selectedFormat}`, quality);
             });
             
             // Download resized image for Filesize tab
             downloadBtnFilesize.addEventListener('click', function() {
-                if (!resizedImageBlobFilesize) {
-                    alert('Please resize the image first');
-                    return;
-                }
+                if (!resizedImageBlobFilesize) return;
                 
-                const format = formatFilesize.value === 'jpeg' ? 'jpg' : formatFilesize.value;
                 const url = URL.createObjectURL(resizedImageBlobFilesize);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `resized-image.${format}`;
+                a.download = `resized-image.${formatFilesize.value}`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -1198,5 +1252,67 @@
             });
         });
     </script>
+
+    <!-- Optimized Ad Loading Script -->
+    <script>
+    // Lazy load ads with IntersectionObserver
+    document.addEventListener('DOMContentLoaded', function() {
+        function loadAd(element) {
+            const key = element.getAttribute('data-ad-key');
+            const format = element.getAttribute('data-ad-format');
+            const width = element.getAttribute('data-ad-width');
+            const height = element.getAttribute('data-ad-height');
+            
+            const protocol = window.location.protocol === 'https:' ? 's' : '';
+            const script = document.createElement('script');
+            script.src = `http${protocol}://www.profitabledisplaynetwork.com/${key}/invoke.js`;
+            script.type = 'text/javascript';
+            
+            window.atOptions = {
+                'key': key,
+                'format': format,
+                'height': height,
+                'width': width,
+                'params': {}
+            };
+            
+            // Remove loading spinner
+            const loadingElement = element.querySelector('.ad-loading');
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+            
+            element.appendChild(script);
+        }
+
+        // Load ads when they become visible
+        const adObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    loadAd(entry.target);
+                    adObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all ad containers
+        document.querySelectorAll('[data-ad-key]').forEach(ad => {
+            adObserver.observe(ad);
+        });
+
+        // Special handling for video ads (load when tab activated)
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                const videoAd = document.querySelector(`#${tabId} [data-ad-key]`);
+                if (videoAd && !videoAd.hasChildNodes()) {
+                    loadAd(videoAd);
+                }
+            });
+        });
+
+        <!-- Adsterra Popunder Code -->
+<script type='text/javascript' src='//pl26316759.profitableratecpm.com/ca/a1/75/caa17578867b815e469595ffd76d1a9a.js'></script>     
+    
 </body>
 </html>
