@@ -1,63 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" 
-          content="default-src 'self';
-          script-src 'self' https://www.adsterra.com https://ajax.googleapis.com 'unsafe-eval';
-          style-src 'self' 'unsafe-inline';
-          img-src 'self' data: https://www.adsterra.com;
-          frame-src https://www.adsterra.com;
-          connect-src 'self' https://www.adsterra.com">
-    <meta name="description" content="Mobile-Optimized Image Resizer - Resize images by dimensions or file size">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
-    <title>Mobile Image Resizer</title>
-    <link rel="stylesheet" href="script.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+        script-src 'self' https://www.adsterra.com https://ajax.googleapis.com 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https://www.adsterra.com;
+        frame-src https://www.adsterra.com;
+        connect-src 'self' https://www.adsterra.com">
+  <meta name="description" content="Mobile-Optimized Image Resizer - Resize images by dimensions or file size" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+  <title>Mobile Image Resizer</title>
+  <link rel="stylesheet" href="script.css" />
 </head>
 <body>
-    <!-- Top Ad Container -->
-    <div id="adsterra-top" class="ad-banner"></div>
+  
+  <!-- Top Banner Ad -->
+  <div class="ad-banner" id="ad-top">
+    <script type="text/javascript">
+      atOptions = {
+        'key': 'ad71187ac6a638326d4b87c4bf5cc116',
+        'format': 'iframe',
+        'height': 50,
+        'width': 320,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/ad71187ac6a638326d4b87c4bf5cc116/invoke.js"></script>
+  </div>
 
-    <main class="container">
-        <h1>Image Resizer</h1>
-        
-        <!-- Mode Selector -->
-        <div class="mode-buttons">
-            <button class="mode-btn" data-mode="dimensions">Resize by Dimensions</button>
-            <button class="mode-btn" data-mode="filesize">Resize by File Size</button>
-        </div>
+  <!-- Main Content -->
+  <main class="container">
+    <h1>Image Resizer</h1>
 
-        <!-- Dimensions Resizer -->
-        <section id="dimensions-section" class="resizer-section hidden">
-            <input type="file" class="file-input" accept="image/jpeg, image/png">
-            <div class="input-group">
-                <input type="number" id="width" placeholder="Width">
-                <select id="width-unit">
-                    <option value="px">px</option>
-                    <option value="mm">mm</option>
-                    <option value="cm">cm</option>
-                    <option value="in">in</option>
-                </select>
-            </div>
-            <!-- Additional form elements -->
-        </section>
+    <!-- Mode Selector -->
+    <div class="mode-buttons">
+      <button class="mode-btn" data-mode="dimensions">Resize by Dimensions</button>
+      <button class="mode-btn" data-mode="filesize">Resize by File Size</button>
+    </div>
 
-        <!-- Download Section -->
-        <div class="download-section">
-            <button id="download-btn" disabled>Download Image</button>
-        </div>
+    <!-- Resizer Section -->
+    <section id="dimensions-section" class="resizer-section hidden">
+      <input type="file" class="file-input" accept="image/jpeg, image/png" />
+      <div class="input-group">
+        <input type="number" id="width" placeholder="Width" />
+        <select id="width-unit">
+          <option value="px">px</option>
+          <option value="mm">mm</option>
+          <option value="cm">cm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+      <!-- You can add more input fields for height, etc -->
+    </section>
 
-        <!-- Bottom Ad Container -->
-        <div id="adsterra-bottom" class="ad-banner"></div>
-    </main>
+    <!-- Download Section -->
+    <div class="download-section">
+      <button id="download-btn" disabled>Download Image</button>
+    </div>
 
-    <!-- Video Ad Container -->
-    <div id="adsterra-video" style="display:none;"></div>
+    <!-- Bottom Banner Ad -->
+    <div class="ad-banner" id="ad-bottom">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '5d120834528f816ae0581b74b95f4bbe',
+          'format': 'iframe',
+          'height': 250,
+          'width': 300,
+          'params': {}
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/5d120834528f816ae0581b74b95f4bbe/invoke.js"></script>
+    </div>
+  </main>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="adsterra-loader.js"></script>
-    <script src="script.js"></script>
+  <!--Social Bar Script) -->
+  <script type="text/javascript" src="//pl26317044.profitableratecpm.com/32/be/f1/32bef19b98ec34080fb8221818617bf8.js"></script>
+
+  <!--Popunder Ad -->
+ <script type='text/javascript' src='//pl26316759.profitableratecpm.com/ca/a1/75/caa17578867b815e469595ffd76d1a9a.js'></script>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="adsterra-loader.js"></script>
+  <script src="script.js"></script>
+
 </body>
 </html>
-                
