@@ -1,35 +1,74 @@
-/* Add all CSS from the original style tag here */
 :root {
-    --primary-color: #4a6bff;
-    --secondary-color: #f5f7ff;
-    --text-color: #333;
-    /* ... (keep all CSS variables) ... */
+    --primary: #2ecc71;
+    --accent: #27ae60;
+    --background: #f8f9fa;
+    --text: #2c3e50;
 }
 
-[data-theme="dark"] {
-    --primary-color: #5d7eff;
-    /* ... (keep dark theme variables) ... */
-}
-
-* {
+body {
+    font-family: 'Segoe UI', system-ui;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ... (keep all other CSS rules exactly as they are) ... */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.mode-buttons {
+    display: grid;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.mode-btn {
+    background: var(--primary);
+    color: white;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.resizer-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+.ad-banner {
+    margin: 15px auto;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 8px;
+    min-height: 50px;
+}
+
+#adsterra-top {
+    height: 50px;
+}
+
+#adsterra-bottom {
+    min-height: 250px;
+}
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
+    .container {
+        padding: 10px;
     }
-
-    .upload-area {
-        padding: 20px;
-    }
-
-    .resize-controls {
+    
+    .mode-btn {
         padding: 15px;
+        font-size: 1rem;
     }
 }
