@@ -1,14 +1,55 @@
-window.onload = function () {
-  const adContainer = document.createElement('div');
-  adContainer.id = 'container-5d120834528f816ae0581b74b95f4bbe'; 
+class AdsterraLoader {
+    static initialized = false;
 
-  const target = document.getElementById('download-button') || document.body;
-  target.parentNode.insertBefore(adContainer, target.nextSibling);
+    static init() {
+        if (!this.initialized) {
+            this.loadSDK();
+            this.initialized = true;
+        }
+    }
 
-  const adScript = document.createElement('script');
-  adScript.src = '//www.highperformanceformat.com/5d120834528f816ae0581b74b95f4bbe/invoke.js"></script>'; 
-  adScript.async = true;
-  adScript.setAttribute('data-cfasync', 'false');
+    static loadSDK() {
+        const script = document.createElement('script');
+        script.src = 'https://www.adsterra.com/sdk.js';
+        script.async = true;
+        document.head.appendChild(script);
+    }
 
-  document.body.appendChild(adScript);
-};
+    static loadBanners() {
+        window.AdsterraBanner?.load({
+            id: 'adsterra-top',
+            format: '320x50'
+        });
+        
+        window.AdsterraBanner?.load({
+            id: 'adsterra-bottom',
+            format: '300x250'
+        });
+    }
+
+    static showVideoAd() {
+        return new Promise((resolve, reject) => {
+            const container = document.getElementById('adsterra-video');
+            container.style.display = 'block';
+            
+            window.AdsterraVideo?.load({
+                container: 'adsterra-video',
+                format: 'rewarded',
+                onCompleted: () => {
+                    container.style.display = 'none';
+                    resolve();
+                },
+                onError: (err) => {
+                    container.style.display = 'none';
+                    reject(err);
+                }
+            });
+        });
+    }
+}
+
+// Initialize ads after first user interaction
+document.addEventListener('click', () => {
+    AdsterraLoader.init();
+    AdsterraLoader.loadBanners();
+}, { once: true });
